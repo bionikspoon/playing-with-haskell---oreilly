@@ -14,3 +14,6 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+
+ch04/InteractWith
+ch04/FixLines
