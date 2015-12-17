@@ -1,5 +1,14 @@
 module Excercises where
 
+import           Data.Maybe
+
+s0 :: [t]
+s0 = []
+s1 :: [Int]
+s1 = [1]
+sn :: [Int]
+sn = [1..5]
+
 
 safeHead:: [a] -> Maybe a
 safeHead [] = Nothing
@@ -8,7 +17,7 @@ safeHead (x:_) = Just x
 
 safeTail:: [a] -> Maybe [a]
 safeTail [] = Nothing
-safeTail [x] = Just [x]
+safeTail [_] = Just []
 safeTail (_:xs) = Just xs
 
 safeLast:: [a] -> Maybe a
@@ -19,5 +28,5 @@ safeLast (_:xs) =  safeLast xs
 
 safeInit:: [a] -> Maybe [a]
 safeInit [] = Nothing
-safeInit [x] = Just [x]
-safeInit  (x:xs)  = x: safeInit xs
+safeInit [_] = Just []
+safeInit (x:xs) = Just (x : fromMaybe xs (safeInit xs))
