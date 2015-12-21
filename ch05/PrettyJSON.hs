@@ -1,10 +1,14 @@
-module PrettyJSON where
+module PrettyJSON
+    (
+      renderJValue
+    ) where
 
-import           Data.Bits
-import           Data.Char
-import           Numeric
-import           PrettyStub
-import           SimpleJSON
+import           Data.Bits  (shiftR, (.&.))
+import           Data.Char  (ord)
+import           Numeric    (showHex)
+import           Prettify   (Doc, char, double, fsep, hcat, punctuate, text,
+                             (<>))
+import           SimpleJSON (JValue (..))
 
 renderJValue :: JValue ->  Doc
 renderJValue (JBool True)   = text "true"
@@ -12,6 +16,9 @@ renderJValue (JBool False)  = text "false"
 renderJValue JNull          = text "null"
 renderJValue (JNumber num)  = double num
 renderJValue (JString str)  = string str
+renderJValue (JArray array) = series '[' ']' renderJValue array
+renderJValue (JObject obj)  = series '{' '}' field obj
+    where field (name, val) = string name <> text ": " <> renderJValue val
 
 string :: String -> Doc
 string = enclose '"' '"' . hcat . map oneChar
@@ -48,4 +55,5 @@ hexEscape c
     | otherwise     = astral (d - 0x10000)
     where d = ord c
 
--- series :: Char -> Char -> (a -> Doc) -> [a] -> Doc
+series :: Char -> Char -> (a -> Doc) -> [a] -> Doc
+series open close item = enclose open close . fsep . punctuate (char ',') . map item

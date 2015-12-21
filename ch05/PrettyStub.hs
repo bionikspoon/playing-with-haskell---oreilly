@@ -26,3 +26,6 @@ hcat _ = undefined
 
 -- hexEscape :: t -> Doc
 -- hexEscape _ = undefined
+
+fsep :: [Doc] -> Doc
+fsep _ = undefined
