@@ -6,8 +6,8 @@ module PrettyJSON
 import           Data.Bits  (shiftR, (.&.))
 import           Data.Char  (ord)
 import           Numeric    (showHex)
-import           Prettify   (Doc, char, double, fsep, hcat, punctuate, text,
-                             (<>))
+import           Prettify   (Doc, char, compact, double, fsep, hcat, punctuate,
+                             text, (<>))
 import           SimpleJSON (JValue (..))
 
 renderJValue :: JValue ->  Doc

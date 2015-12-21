@@ -9,6 +9,7 @@ module SimpleJSON
         getArray,
         isNull
     ) where
+import           Prettify
 
 data JValue = JString String
             | JNumber Double
